@@ -1,9 +1,15 @@
+## Laravel/Composer
 /vendor
 /node_modules
 Homestead.yaml
 Homestead.json
 .env
 
+## Laravel IDE-Helper
+_ide_helper.php
+_ide_helper_models.php
+
+## IJ/PHPStorm
 /.idea
 
 ## Mac
