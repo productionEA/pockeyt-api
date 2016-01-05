@@ -14,7 +14,6 @@ Route::resource('posts', 'PostsController', ['only' => ['index', 'store', 'show'
 
 // Profile routes...
 Route::get('profiles/{id}/posts', 'ProfilesController@getPosts');
+Route::post('profiles/{profile}/photos', 'ProfilesController@postPhotos');
+Route::delete('profiles/{profile}/photos', 'ProfilesController@deletePhotos');
 Route::resource('profiles', 'ProfilesController', ['except' => ['index']]);
-
-// Photo routes...
-Route::resource('photos', 'PhotosController', ['only' => ['store', 'destroy']]);

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddProfilePhotoRequest;
+use App\Http\Requests\DeleteProfilePhotoRequest;
 use App\Photo;
 use App\Post;
 use App\Profile;
@@ -97,5 +99,23 @@ class ProfilesController extends Controller {
 
     public function getMyPosts() {
         return $this->getPosts(\Auth::user()->profile->id);
+    }
+
+    public function postPhotos(AddProfilePhotoRequest $request, $profile_id) {
+        $file = $request->file('photo');
+        $photo = Photo::fromForm($file);
+        $photo->save();
+        Profile::findOrFail($profile_id)->{$request->get('type')}()->associate($photo)->save();
+        return response('ok');
+    }
+
+    public function deletePhotos(DeleteProfilePhotoRequest $request, $profile_id) {
+        /** @var Profile $profile */
+        $profile = Profile::findOrFail($profile_id);
+        $type = $request->get('type');
+        $photo = $profile->{$type};
+        $profile->{$type}()->dissociate()->save();
+        $photo->delete();
+        return back();
     }
 }

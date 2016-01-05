@@ -16,37 +16,64 @@
         </div>
 
         <div class="col-md-8 gallery">
-            @foreach ($profile->photos->chunk(4) as $set)
-                <div class="row">
-                    @foreach ($set as $photo)
-                        <div class="col-md-3 gallery_image">
-                            @if ($user && $user->owns($profile))
-                                <form method="POST" action="/photos/{{ $photo->id }}">
-                                    {{ csrf_field() }}
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit">Delete</button>
-                                </form>
-                            @endif
-                            <img src="{{ $photo->thumbnail_url }}">
-                        </div>
-                    @endforeach
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Logo</h2>
+                    @if(is_null($profile->logo))
+                        <h4>Upload</h4>
+                        <form id="uploadLogo" action="/profiles/{{ $profile->id }}/photos" method="POST" class="dropzone">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="type" value="logo">
+                        </form>
+                    @else
+                        <img src="{{ $profile->logo->url }}">
+                        @if($user && $user->owns($profile))
+                            <form action="/profiles/{{ $profile->id }}/photos" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="type" value="logo">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        @endif
+                    @endif
                 </div>
-            @endforeach
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Hero/Banner</h2>
+                    @if(is_null($profile->hero))
+                        <h4>Upload</h4>
+                        <form id="uploadHero" action="/profiles/{{ $profile->id }}/photos" method="POST" class="dropzone">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="type" value="hero">
+                        </form>
+                    @else
+                        <img src="{{ $profile->hero->url }}">
+                        @if($user && $user->owns($profile))
+                            <form action="/profiles/{{ $profile->id }}/photos" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="type" value="hero">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        @endif
+                    @endif
+                </div>
+            </div>
 
             @if ($user && $user->owns($profile))
                 <hr>
-                <h3>Add Logo Here</h3>
-                <form id="addPhotoForm" action="/photos" method="POST" class="dropzone">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="logo" id="logo" value="true">
-                </form>
-
-                <hr>
-
-                <form method="POST" action="/posts">
-                    @include ('posts.form')
-                    @include ('errors.form')
-                </form>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form method="POST" action="/posts">
+                            @include ('posts.form')
+                            @include ('errors.form')
+                        </form>
+                    </div>
+                </div>
             @endif
         </div>
     </div>
@@ -56,12 +83,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/dropzone.js"></script>
 
     <script>
-        Dropzone.options.addPhotoForm = {
+        Dropzone.options.uploadLogo = {
             paramName: 'photo',
             maxFilesize: 3,
             acceptedFiles: '.jpg, .jpeg, .png, .bmp',
-        }
+            init: function() {
+                this.on('success', function() {
+                    window.location.reload();
+                });
+            }
+        };
+        Dropzone.options.uploadHero = {
+            paramName: 'photo',
+            maxFilesize: 3,
+            acceptedFiles: '.jpg, .jpeg, .png, .bmp',
+            init: function() {
+                this.on('success', function() {
+                    window.location.reload();
+                });
+            }
+        };
     </script>
-
-
-
+@stop

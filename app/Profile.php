@@ -14,7 +14,9 @@ class Profile extends Model {
     protected $fillable = [
         'business_name',
         'website',
-        'description'
+        'description',
+        'logo_photo_id',
+        'hero_photo_id'
     ];
 
     /**
@@ -36,23 +38,12 @@ class Profile extends Model {
         return static::where(compact('business_name'))->firstOrFail();
     }
 
-    /**
-     * Saves given photo instance
-     *
-     * @param Photo $photo
-     * @return self
-     */
-    public function addPhoto(Photo $photo) {
-        return $this->photos()->save($photo);
+    public function logo() {
+        return $this->belongsTo('App\Photo', 'logo_photo_id');
     }
 
-    /**
-     * A profile has many photos
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function photos() {
-        return $this->hasMany('App\Photo');
+    public function hero() {
+        return $this->belongsTo('App\Photo', 'hero_photo_id');
     }
 
     /**

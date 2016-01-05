@@ -13,7 +13,7 @@ class Photo extends Model {
      *
      * @var array
      */
-    protected $fillable = ['path', 'logo', 'name', 'thumbnail_path'];
+    protected $fillable = ['path', 'name', 'thumbnail_path'];
 
     /**
      * The UploadedFile instance
@@ -28,37 +28,27 @@ class Photo extends Model {
      * @return void
      */
     protected static function boot() {
-        static::creating(function ($photo) {
+        static::creating(function($photo) {
+            \Log::debug('Creating photo', ['photo' => $photo->toArray()]);
             return $photo->upload();
         });
-    }
-
-    /**
-     * A photo belongs to a profile
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function profile() {
-        return $this->belongsTo('App\Profile');
     }
 
     /**
      * Make a new photo instance from an uploaded file
      *
      * @var $file
-     * @var $logoBool
      * @return self
      */
-    public static function fromForm($file, $logoBool) {
+    public static function fromForm($file) {
         $photo = new static;
 
         $photo->file = $file;
+        $photo->name = $photo->fileName();
 
         return $photo->fill([
-            'name' => $photo->fileName(),
             'path' => $photo->filePath(),
-            'thumbnail_path' => $photo->thumbnailPath(),
-            'logo' => $logoBool
+            'thumbnail_path' => $photo->thumbnailPath()
         ]);
     }
 
@@ -68,8 +58,11 @@ class Photo extends Model {
      * @return string
      */
     public function fileName() {
+        if(!is_null($this->name) && $this->name)
+            return $this->name;
+
         $name = sha1(
-            $this->file->getClientOriginalName()
+            $this->file->getClientOriginalName() . '-' . microtime()
         );
 
         $extension = $this->file->getClientOriginalExtension();
@@ -124,7 +117,9 @@ class Photo extends Model {
      */
     protected function makeThumbnail() {
         Image::make($this->filePath())
-            ->fit(200)
+            ->fit(200, 200, function($constraint) {
+                $constraint->upsize();
+            }, 'center')
             ->save($this->thumbnailPath());
     }
 

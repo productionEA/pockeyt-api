@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Profile;
 use App\Http\Requests\Request;
 
-class AddPhotoRequest extends Request {
+class AddProfilePhotoRequest extends Request {
 
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,11 @@ class AddPhotoRequest extends Request {
      * @return bool
      */
     public function authorize() {
-        return true;
+        $profile = $this->route('profile');
+        if(!is_null($user = \Auth::user())) {
+            return !is_null($user->profile) && $user->profile->id == $profile;
+        }
+        return false;
     }
 
     /**
@@ -23,6 +27,7 @@ class AddPhotoRequest extends Request {
      */
     public function rules() {
         return [
+            'type' => 'required|in:logo,hero',
             'photo' => 'required|mimes:jpg,jpeg,png,bmp'
         ];
     }
