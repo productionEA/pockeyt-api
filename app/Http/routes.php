@@ -1,28 +1,20 @@
 <?php
 
-Route::get('/', 'PagesController@home');
-Route::get('my_posts', 'PagesController@my_posts');
+Route::get('/', 'AppController@index');
 
-// Authentication routes...
-Route::get('auth/login', 'Auth\AuthController@getLogin');
-Route::post('auth/login', 'Auth\AuthController@postLogin');
-Route::get('auth/logout', 'Auth\AuthController@getLogout');
+// Auth routes...
+Route::get('auth/login',        'Auth\AuthController@getLogin');
+Route::post('auth/login',       'Auth\AuthController@postLogin');
+Route::get('auth/logout',       'Auth\AuthController@getLogout');
+Route::get('auth/register',     'Auth\AuthController@getRegister');
+Route::post('auth/register',    'Auth\AuthController@postRegister');
 
-// Registration routes...
-Route::get('auth/register', 'Auth\AuthController@getRegister');
-Route::post('auth/register', 'Auth\AuthController@postRegister');
+// Posts routes...
+Route::resource('posts', 'PostsController', ['only' => ['index', 'store', 'show']]);
 
-//Photos routes
-Route::post('{business_name}/photos', 'ProfilesController@addPhoto');
-Route::delete('photos/{id}', 'ProfilesController@destroyPhoto');
+// Profile routes...
+Route::get('profiles/{id}/posts', 'ProfilesController@getPosts');
+Route::resource('profiles', 'ProfilesController', ['except' => ['index']]);
 
-//Posts routes
-Route::get('posts', 'PostsController@index');
-Route::post('posts', 'PostsController@store');
-Route::get('posts/{id}', 'PostsController@show');
-
-//Profile routes
-Route::resource('profiles', 'ProfilesController');
-Route::get('photos', 'ProfilesController@index');
-Route::get('{business_name}', 'ProfilesController@show');
-
+// Photo routes...
+Route::resource('photos', 'PhotosController', ['only' => ['store', 'destroy']]);
