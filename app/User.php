@@ -64,7 +64,7 @@ class User extends Model implements AuthenticatableContract,
      * current user saves and associates with profile
      *
      * @param Profile $profile
-     * @return static
+     * @return Profile
      */
     public function publish(Profile $profile) {
         return $this->profile()->save($profile);

@@ -33,6 +33,9 @@ class ProfilesController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
+        if(!is_null($this->user->profile))
+            return redirect()->route('profiles.show', ['profiles' => $this->user->profile->id]);
+
         return view('profiles.create');
     }
 
@@ -43,6 +46,9 @@ class ProfilesController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(ProfileRequest $request) {
+        if(!is_null($this->user->profile))
+            return redirect()->route('profiles.show', ['profiles' => $this->user->profile->id]);
+
         $profile = $this->user->publish(
             new Profile($request->all())
         );
