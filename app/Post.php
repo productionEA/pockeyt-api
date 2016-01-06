@@ -23,6 +23,8 @@ class Post extends Model {
      */
     protected $dates = ['published_at'];
 
+    protected $appends = ['formatted_body'];
+
     /**
      * Sets the published at attribute
      *

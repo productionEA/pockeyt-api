@@ -15,6 +15,8 @@ class Photo extends Model {
      */
     protected $fillable = ['path', 'name', 'thumbnail_path'];
 
+    protected $appends = ['url', 'thumbnail_url'];
+
     /**
      * The UploadedFile instance
      *
@@ -29,7 +31,6 @@ class Photo extends Model {
      */
     protected static function boot() {
         static::creating(function($photo) {
-            \Log::debug('Creating photo', ['photo' => $photo->toArray()]);
             return $photo->upload();
         });
     }

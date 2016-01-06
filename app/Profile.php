@@ -19,12 +19,15 @@ class Profile extends Model {
         'hero_photo_id'
     ];
 
-    /**
-     * Find profile at business_name
-     *
-     * @param string $business_name
-     * @return Builder
-     */
+    public function toDetailedArray() {
+        $data = array_only($this->toArray(), ['id', 'business_name', 'website', 'description', 'created_at', 'updated_at', 'posts']);
+        $data['logo_thumbnail'] = $this->logo->thumbnail_url;
+        $data['logo'] = $this->logo->url;
+        $data['hero_thumbnail'] = $this->hero->thumbnail_url;
+        $data['hero'] = $this->hero->url;
+
+        return $data;
+    }
 
     /**
      * Gets profile with the given $business_name

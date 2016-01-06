@@ -17,3 +17,6 @@ Route::get('profiles/{id}/posts', 'ProfilesController@getPosts');
 Route::post('profiles/{profile}/photos', 'ProfilesController@postPhotos');
 Route::delete('profiles/{profile}/photos', 'ProfilesController@deletePhotos');
 Route::resource('profiles', 'ProfilesController', ['except' => ['index']]);
+
+// API Routes
+Route::controller('api', 'APIController');
