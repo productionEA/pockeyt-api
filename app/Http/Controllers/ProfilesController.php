@@ -18,7 +18,7 @@ class ProfilesController extends Controller {
      * Create a new ProfilesController instance
      */
     public function __construct() {
-        $this->middleware('auth', ['except' => ['show', 'index']]);
+        $this->middleware('auth', ['except' => ['show', 'index', 'getPosts']]);
 
         parent::__construct();
     }
@@ -90,7 +90,8 @@ class ProfilesController extends Controller {
      */
 
     public function getPosts($id) {
-        $posts = Post::visible()
+        $posts = Post::with(['profile'])
+            ->visible()
             ->latest('published_at')
             ->where('profile_id', $id)
             ->get();

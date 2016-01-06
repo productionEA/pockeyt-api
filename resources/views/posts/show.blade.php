@@ -1,11 +1,27 @@
 @extends('layout')
 
 @section('content')
-    <h1>{{ $post->title }}</h1>
 
-    <hr>
+    <div class="row">
+        <div class="col-md-12">
 
-    <article>
-        {!!  $post->formatted_body !!}
-    </article>
+            @if(is_null($post))
+
+                <h2 class="text-center">Post not found.</h2>
+
+            @else
+
+                <h1>{{ $post->title }}</h1>
+
+                <hr>
+
+                <article>
+                    {!!  $post->formatted_body !!}
+                </article>
+
+            @endif
+
+        </div>
+    </div>
+
 @stop

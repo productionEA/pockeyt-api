@@ -23,6 +23,8 @@ abstract class Controller extends BaseController {
         $this->user = \Auth::user();
 
         view()->share('signedIn', \Auth::check());
+        view()->share('hasProfile', \Auth::check() && !is_null(\Auth::user()->profile));
+        view()->share('isAdmin', \Auth::check() && \Auth::user()->is_admin);
         view()->share('user', $this->user);
     }
 }

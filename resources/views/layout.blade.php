@@ -22,13 +22,17 @@
             <a class="navbar-brand" href="/">Pockeyt Business</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-            @if ($signedIn && $user->profile !== null)
-                <ul class="nav navbar-nav">
-                    <li><a href="/profiles/{{$user->profile->id}}">My Profile</a></li>
-                    <li><a href="/profiles/{{$user->profile->id}}/posts">My Posts</a></li>
-                    <li><a href="/posts">All Posts</a></li>
-                </ul>
-            @endif
+            <ul class="nav navbar-nav">
+                @if ($signedIn)
+                    @if($hasProfile)
+                        <li><a href="/profiles/{{$user->profile->id}}">My Profile</a></li>
+                        <li><a href="/profiles/{{$user->profile->id}}/posts">My Posts</a></li>
+                    @else
+                        <li><a href="/profiles/create">Create Profile</a></li>
+                    @endif
+                @endif
+                <li><a href="/posts">All Posts</a></li>
+            </ul>
             <ul class="navbar-text navbar-right nav-pills">
                 @if ($signedIn)
                     <li><a href="/auth/logout">Logout</a></li>

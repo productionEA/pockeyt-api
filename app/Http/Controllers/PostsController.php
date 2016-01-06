@@ -40,7 +40,7 @@ class PostsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        $post = Post::visible()->findOrFail($id);
+        $post = Post::visible()->find($id);
 
         return view('posts.show', compact('post'));
     }

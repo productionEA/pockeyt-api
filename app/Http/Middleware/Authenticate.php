@@ -43,6 +43,12 @@ class Authenticate {
             } else {
                 return redirect()->to('/');
             }
+        } elseif(!$this->auth->user()->is_admin && is_null($this->auth->user()->profile) && (is_null($route = $request->route()) || $route->getName() !== 'profiles.create')) {
+            if($request->ajax()) {
+                return response('Must create profile first.', 400);
+            } else {
+                return redirect()->route('profiles.create');
+            }
         }
 
         return $next($request);

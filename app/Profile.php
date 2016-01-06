@@ -103,10 +103,12 @@ class Profile extends Model {
      * @return mixed
      */
     public function scopeVisible($query) {
-        $query = $query->approved();
-        if(\Auth::check()) {
-            $query = $query->orWhere('user_id', \Auth::id());
-        }
-        return $query;
+        return $query->where(function($query) {
+            $query = $query->approved();
+            if(\Auth::check()) {
+                $query = $query->orWhere('user_id', \Auth::id());
+            }
+            return $query;
+        });
     }
 }

@@ -59,10 +59,7 @@ class Post extends Model {
     public function scopeVisible($query) {
         return $query->whereHas('profile', function($query) {
             /** @var Profile $query */
-            return $query->where(function($query) {
-                /** @var Profile $query */
-                return $query->visible();
-            });
+            return $query->visible();
         });
     }
 }
