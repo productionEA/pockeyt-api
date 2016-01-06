@@ -43,7 +43,17 @@ class Authenticate {
             } else {
                 return redirect()->to('/');
             }
-        } elseif(!$this->auth->user()->is_admin && is_null($this->auth->user()->profile) && (is_null($route = $request->route()) || $route->getName() !== 'profiles.create')) {
+        } elseif(
+            // If user is not admin...
+            !$this->auth->user()->is_admin &&
+            // ... and does not have a profile ...
+            is_null($this->auth->user()->profile) &&
+            // ... and the request is properly routed ...
+            !is_null($route = $request->route()) &&
+            // ... and they're not actively trying to create a profile...
+            ($route->getName() !== 'profiles.create' && $route->getName() !== 'profiles.store')
+            // ... then redirect them to the "Create Profile" form.
+        ) {
             if($request->ajax()) {
                 return response('Must create profile first.', 400);
             } else {
