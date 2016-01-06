@@ -59,7 +59,7 @@ class ProfilesController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        $profile = Profile::find($id);
+        $profile = Profile::visible()->find($id);
 
         return view('profiles.show', compact('profile'));
     }
@@ -90,7 +90,8 @@ class ProfilesController extends Controller {
      */
 
     public function getPosts($id) {
-        $posts = Post::latest('published_at')
+        $posts = Post::visible()
+            ->latest('published_at')
             ->where('profile_id', $id)
             ->get();
 

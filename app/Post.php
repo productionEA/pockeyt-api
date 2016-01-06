@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use DateTimeZone;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Schema\Builder;
 
 class Post extends Model {
     /**
@@ -49,5 +50,19 @@ class Post extends Model {
 
     public function getFormattedBodyAttribute() {
         return html_newlines_to_p($this->body);
+    }
+
+    /**
+     * @param Builder|\Illuminate\Database\Eloquent\Builder|Model $query
+     * @return mixed
+     */
+    public function scopeVisible($query) {
+        return $query->whereHas('profile', function($query) {
+            /** @var Profile $query */
+            return $query->where(function($query) {
+                /** @var Profile $query */
+                return $query->visible();
+            });
+        });
     }
 }

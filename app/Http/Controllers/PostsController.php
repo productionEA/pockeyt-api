@@ -28,7 +28,7 @@ class PostsController extends Controller {
      * @return Collection
      */
     public function index() {
-        $posts = Post::latest('published_at')->get();
+        $posts = Post::visible()->latest('published_at')->get();
 
         return view('posts.index', compact('posts'));
     }
@@ -40,7 +40,7 @@ class PostsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        $post = Post::findOrFail($id);
+        $post = Post::visible()->findOrFail($id);
 
         return view('posts.show', compact('post'));
     }

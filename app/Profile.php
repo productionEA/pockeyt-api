@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 
 class Profile extends Model {
 
@@ -17,6 +18,10 @@ class Profile extends Model {
         'description',
         'logo_photo_id',
         'hero_photo_id'
+    ];
+
+    protected $casts = [
+        'approved' => 'boolean'
     ];
 
     public function toDetailedArray() {
@@ -83,5 +88,25 @@ class Profile extends Model {
      */
     public function owns($relation) {
         return $relation->profile_id == $this->id;
+    }
+
+    /**
+     * @param Builder|\Illuminate\Database\Eloquent\Builder|Profile $query
+     * @return mixed
+     */
+    public function scopeApproved($query) {
+        return $query->where('approved', true);
+    }
+
+    /**
+     * @param Builder|\Illuminate\Database\Eloquent\Builder|Profile $query
+     * @return mixed
+     */
+    public function scopeVisible($query) {
+        $query = $query->approved();
+        if(\Auth::check()) {
+            $query = $query->orWhere('user_id', \Auth::id());
+        }
+        return $query;
     }
 }

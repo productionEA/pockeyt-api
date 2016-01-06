@@ -13,11 +13,11 @@ class APIController extends Controller {
     }
 
     public function getPosts() {
-        return response()->json(Post::with([])->latest()->get());
+        return response()->json(Post::visible()->with([])->latest()->get());
     }
 
     public function getPost($id) {
-        $post = Post::with(['profile'])->find($id);
+        $post = Post::visible()->with(['profile'])->find($id);
         if(is_null($post)) {
             return response()->json(['error' => 'Post not found.'], 404);
         } else {
@@ -26,7 +26,7 @@ class APIController extends Controller {
     }
 
     public function getProfiles() {
-        $profiles = Profile::with(['logo', 'hero', 'posts'])->get()->map(function(Profile $profile) {
+        $profiles = Profile::approved()->with(['logo', 'hero', 'posts'])->get()->map(function(Profile $profile) {
             return $profile->toDetailedArray();
         });
         return response()->json($profiles);
@@ -34,7 +34,7 @@ class APIController extends Controller {
 
     public function getProfile($id) {
         /** @var Profile $profile */
-        $profile = Profile::with(['logo', 'hero', 'posts'])->find($id);
+        $profile = Profile::approved()->with(['logo', 'hero', 'posts'])->find($id);
         if(is_null($profile)) {
             return response()->json(['error' => 'Profile not found.'], 404);
         } else {

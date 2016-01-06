@@ -6,9 +6,18 @@
         <div class="col-md-4">
             <h1>{{ $profile->business_name }}</h1>
             @if ($user && $user->owns($profile))
+                @if($profile->approved)
+                    <div class="alert alert-success">
+                        Your profile is <strong>approved</strong>. Users will be able to see it and any of your posts.
+                    </div>
+                @else
+                    <div class="alert alert-danger">
+                        Your profile is <strong>not approved</strong>. Users will not be able to see it or any of your
+                        posts until an administrator reviews it.
+                    </div>
+                @endif
                 <a href="/profiles/{{ $profile->id }}/posts" class="btn btn-primary">View My Posts</a>
             @endif
-
 
             <hr>
 
