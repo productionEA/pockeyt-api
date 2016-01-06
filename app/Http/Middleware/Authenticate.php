@@ -30,12 +30,18 @@ class Authenticate {
      * @param  \Closure $next
      * @return mixed
      */
-    public function handle($request, Closure $next) {
+    public function handle($request, Closure $next, $level = 'user') {
         if($this->auth->guest()) {
             if($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
                 return redirect()->guest('auth/login');
+            }
+        } elseif($level === 'admin' && !$this->auth->user()->is_admin) {
+            if($request->ajax()) {
+                return response('Unauthorized.', 401);
+            } else {
+                return redirect()->to('/');
             }
         }
 

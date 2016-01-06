@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -35,7 +36,11 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password', 'remember_token', 'is_admin'];
+
+    protected $casts = [
+        'is_admin' => 'boolean'
+    ];
 
     /**
      * method to check if user owns object
@@ -49,8 +54,7 @@ class User extends Model implements AuthenticatableContract,
 
     /**
      * A user has one profile
-     *
-     * @return void
+     * @return HasOne
      */
     public function profile() {
         return $this->hasOne(Profile::class);
@@ -60,7 +64,7 @@ class User extends Model implements AuthenticatableContract,
      * current user saves and associates with profile
      *
      * @param Profile $profile
-     * @return self
+     * @return static
      */
     public function publish(Profile $profile) {
         return $this->profile()->save($profile);
