@@ -8315,3 +8315,82 @@ img {
 .gallery_image {
   margin-bottom: 1em;
 }
+
+.profile-list-item {
+    min-height: 230px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.profile-list-item > .row > div, .profile-list-item > .row {
+    margin: 0;
+    padding: 0;
+}
+
+.profile-list-item-logo {
+    display: inline-block;
+    max-width: 60%;
+    margin-top: 10%;
+    margin-bottom: 20px;
+}
+
+.profile-list-item-table {
+    max-width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 0.8em;
+}
+
+.profile-list-item-table > tbody > tr > th,
+.profile-list-item-table > tbody > tr > td {
+    padding: 4px;
+}
+
+.profile-list-item-header {
+    display: block;
+    position: relative;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.profile-list-item-header h2 {
+    position: absolute;
+    left: 20px;
+    right: 0;
+    bottom: 10px;
+    width: auto;
+    height: auto;
+    color: #fff;
+    z-index: 100;
+    line-height: 1;
+}
+
+.profile-list-item-status {
+    max-width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.profile-list-item-header-screen {
+    display: block;
+    margin: 0;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(50,50,50,.3);
+    z-index: 10;
+}
+
+.profile-list-item-body {
+    display: block;
+    position: relative;
+    padding: 20px 10px 20px 0;
+}

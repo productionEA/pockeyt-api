@@ -32,67 +32,69 @@
                 <hr>
 
                 <div class="description">{!! nl2br($profile->description) !!}</div>
-            </div>
 
-            <div class="col-md-8 gallery">
+                <hr>
 
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Logo</h2>
+                        <p><label>Logo</label></p>
                         @if(is_null($profile->logo))
-                            <h4>Upload</h4>
                             <form id="uploadLogo" action="/profiles/{{ $profile->id }}/photos" method="POST" class="dropzone">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="type" value="logo">
                             </form>
                         @else
-                            <img src="{{ $profile->logo->url }}">
+                            <p><img src="{{ $profile->logo->url }}"></p>
                             @if($user && $user->owns($profile))
                                 <form action="/profiles/{{ $profile->id }}/photos" method="POST">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="type" value="logo">
                                     <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-danger btn-block">Delete</button>
                                 </form>
                             @endif
                         @endif
                     </div>
                 </div>
 
+                <hr>
 
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Hero/Banner</h2>
+                        <p><label>Hero/Banner</label></p>
                         @if(is_null($profile->hero))
-                            <h4>Upload</h4>
                             <form id="uploadHero" action="/profiles/{{ $profile->id }}/photos" method="POST" class="dropzone">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="type" value="hero">
                             </form>
                         @else
-                            <img src="{{ $profile->hero->url }}">
+                            <p><img src="{{ $profile->hero->url }}"></p>
                             @if($user && $user->owns($profile))
                                 <form action="/profiles/{{ $profile->id }}/photos" method="POST">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="type" value="hero">
                                     <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-danger btn-block">Delete</button>
                                 </form>
                             @endif
                         @endif
                     </div>
                 </div>
+            </div>
 
-                @if ($user && $user->owns($profile))
-                    <hr>
+            <div class="col-md-8 gallery">
+                @if($user && $user->owns($profile))
                     <div class="row">
                         <div class="col-lg-12">
+                            <h2>Create a Post</h2>
                             <form method="POST" action="/posts">
                                 @include ('posts.form')
                                 @include ('errors.form')
                             </form>
                         </div>
                     </div>
+                @else
+
                 @endif
             </div>
         </div>

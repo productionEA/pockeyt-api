@@ -90,6 +90,10 @@ class Profile extends Model {
         return $relation->profile_id == $this->id;
     }
 
+    public function getFormattedDescriptionAttribute() {
+        return html_newlines_to_p($this->description);
+    }
+
     /**
      * @param Builder|\Illuminate\Database\Eloquent\Builder|Profile $query
      * @return mixed

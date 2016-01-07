@@ -19,6 +19,7 @@ class ProfilesController extends Controller {
      */
     public function __construct() {
         $this->middleware('auth', ['except' => ['show', 'index', 'getPosts']]);
+        $this->middleware('auth:admin', ['only' => ['index', 'postApprove', 'postUnapprove']]);
 
         parent::__construct();
     }
@@ -26,6 +27,12 @@ class ProfilesController extends Controller {
     /**************************
      * Resource actions
      */
+
+    public function index() {
+        $profiles = Profile::with(['owner', 'posts', 'logo', 'hero'])->latest()->get();
+
+        return view('profiles.index', compact('profiles'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -126,4 +133,21 @@ class ProfilesController extends Controller {
         $photo->delete();
         return back();
     }
+
+    public function postApprove($profile_id) {
+        /** @var Profile $profile */
+        $profile = Profile::findOrFail($profile_id);
+        $profile->approved = true;
+        $profile->save();
+        return redirect()->to(\URL::previous() . '#profile-' . $profile->id);
+    }
+
+    public function postUnapprove($profile_id) {
+        /** @var Profile $profile */
+        $profile = Profile::findOrFail($profile_id);
+        $profile->approved = false;
+        $profile->save();
+        return redirect()->to(\URL::previous() . '#profile-' . $profile->id);
+    }
+
 }

@@ -19,7 +19,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Pockeyt Business</a>
+            <a class="navbar-brand" href="/">
+                Pockeyt Business
+                @if($isAdmin)
+                    <span class="text-primary">(Admin)</span>
+                @endif
+            </a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -30,8 +35,12 @@
                     @elseif(!$isAdmin)
                         <li><a href="/profiles/create">Create Profile</a></li>
                     @endif
+
+                    @if($isAdmin)
+                        <li><a href="/profiles">All Profiles</a></li>
+                        <li><a href="/posts">All Posts</a></li>
+                    @endif
                 @endif
-                <li><a href="/posts">All Posts</a></li>
             </ul>
             <ul class="navbar-text navbar-right nav-pills">
                 @if ($signedIn)
