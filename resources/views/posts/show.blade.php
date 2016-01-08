@@ -11,7 +11,12 @@
 
             @else
 
-                <h1>{{ $post->title }}</h1>
+                <h1>
+                    {{ $post->title }}
+                    <div class="pull-right">
+                        @include('partials.posts.delete')
+                    </div>
+                </h1>
 
                 <hr>
 

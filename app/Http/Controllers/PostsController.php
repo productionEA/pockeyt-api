@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeletePostRequest;
 use App\Post;
 use App\Profile;
 use Carbon\Carbon;
@@ -60,5 +61,12 @@ class PostsController extends Controller {
 
         flash()->success('Success', 'Your post has been created!');
         return redirect('/profiles/' . $this->user->profile->id);
+    }
+
+    public function destroy(DeletePostRequest $request, $id) {
+        $post = Post::findOrFail($id);
+        $profile_path = profile_path($post->profile);
+        $post->delete();
+        return redirect()->to($profile_path);
     }
 }

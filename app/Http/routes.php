@@ -10,7 +10,7 @@ Route::get('auth/register',     'Auth\AuthController@getRegister');
 Route::post('auth/register',    'Auth\AuthController@postRegister');
 
 // Posts routes...
-Route::resource('posts', 'PostsController', ['only' => ['index', 'store', 'show']]);
+Route::resource('posts', 'PostsController', ['only' => ['index', 'store', 'show', 'destroy']]);
 
 // Profile routes...
 Route::post('profiles/{profile}/photos', 'ProfilesController@postPhotos');

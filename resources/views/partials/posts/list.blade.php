@@ -8,9 +8,16 @@
             @endif
             <div style="display:inline-block;">
                 <h3><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></h3>
-                <p>{{ $post->published_at->diffForHumans() }} by <a
-                            href="/profiles/{{ $post->profile->id }}"><strong>{{ $post->profile->business_name }}</strong></a>
-                </p>
+                <div>
+                    {{ $post->published_at->diffForHumans() }}
+                    by
+                    <a href="/profiles/{{ $post->profile->id }}">
+                        <strong>{{ $post->profile->business_name }}</strong>
+                    </a>
+                    @if($signedIn && ($isAdmin || $user->profile->owns($post)))
+                        @include('partials.posts.delete')
+                    @endif
+                </div>
             </div>
         </article>
     @endforeach
