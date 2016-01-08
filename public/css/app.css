@@ -8401,3 +8401,7 @@ img {
     position: relative;
     padding: 20px 10px 20px 0;
 }
+
+.profile-list-item-approval-button {
+    margin-top: 10px;
+}
