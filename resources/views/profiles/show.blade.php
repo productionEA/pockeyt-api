@@ -29,6 +29,10 @@
                     <a href="/profiles/{{ $profile->id }}/posts" class="btn btn-primary">View My Posts</a>
                 @endif
 
+                @if($signedIn && $isAdmin)
+                    @include('partials.profiles.admin_approval_status')
+                @endif
+
                 <hr>
 
                 <div class="description">{!! nl2br($profile->description) !!}</div>
@@ -82,7 +86,7 @@
                 </div>
             </div>
 
-            <div class="col-md-8 gallery">
+            <div class="col-md-8">
                 @if($user && $user->owns($profile))
                     <div class="row">
                         <div class="col-lg-12">
@@ -93,9 +97,14 @@
                             </form>
                         </div>
                     </div>
-                @else
-
+                    <hr>
                 @endif
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2>Posts</h2>
+                        @include('partials.posts.list', ['posts' => $profile->posts, 'no_icons' => true])
+                    </div>
+                </div>
             </div>
         </div>
 

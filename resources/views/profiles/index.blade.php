@@ -31,13 +31,7 @@
                                     <img class="profile-list-item-logo" src="{{ $profile->logo->url }}">
                                 @endif
 
-                                <div class="profile-list-item-status text-center alert {{ $profile->approved ? 'alert-success' : 'alert-danger'}}">
-                                    <p>This profile is <strong>{{ $profile->approved ? 'approved' : 'not approved'}}</strong></p>
-                                        <form action="/profiles/{{ $profile->id }}/{{ $profile->approved ? 'unapprove' : 'approve'}}" method="post">
-                                            {{ csrf_field() }}
-                                            <input type="submit" class="btn {{ $profile->approved ? 'btn-danger' : 'btn-success'}}" value="{{ $profile->approved ? 'Un-approve' : 'Approve'}}">
-                                        </form>
-                                </div>
+                                @include('partials.profiles.admin_approval_status')
 
                                 <table class="table profile-list-item-table">
                                     <tbody>
@@ -58,6 +52,7 @@
                                 <div class="profile-list-item-header" {!! !is_null($profile->hero) ? 'style="background-image: url(\'' . $profile->hero->url . '\');"' : '' !!}>
                                     <div class="profile-list-item-header-screen"></div>
                                     <h2>{{ $profile->business_name }}</h2>
+                                    <a href="/profiles/{{ $profile->id }}" class="btn btn-primary profile-list-item-view-button">View profile</a>
                                 </div>
 
                                 <div class="profile-list-item-body">
