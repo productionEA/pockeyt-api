@@ -102,20 +102,6 @@ class ProfilesController extends Controller {
      * Other actions
      */
 
-    public function getPosts($id) {
-        $posts = Post::with(['profile'])
-            ->visible()
-            ->latest('published_at')
-            ->where('profile_id', $id)
-            ->get();
-
-        return view('profiles.posts', ['posts' => $posts]);
-    }
-
-    public function getMyPosts() {
-        return $this->getPosts(\Auth::user()->profile->id);
-    }
-
     public function postPhotos(AddProfilePhotoRequest $request, $profile_id) {
         $file = $request->file('photo');
         $photo = Photo::fromForm($file);

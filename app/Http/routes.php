@@ -13,7 +13,6 @@ Route::post('auth/register',    'Auth\AuthController@postRegister');
 Route::resource('posts', 'PostsController', ['only' => ['index', 'store', 'show']]);
 
 // Profile routes...
-Route::get('profiles/{id}/posts', 'ProfilesController@getPosts');
 Route::post('profiles/{profile}/photos', 'ProfilesController@postPhotos');
 Route::post('profiles/{profile}/approve', 'ProfilesController@postApprove');
 Route::post('profiles/{profile}/unapprove', 'ProfilesController@postUnapprove');

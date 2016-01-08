@@ -17,6 +17,6 @@
 
 @else
 
-    <h2 class="text-center">No posts to show.</h2>
+    <div class="text-center alert alert-warning">No posts to show.</div>
 
 @endif

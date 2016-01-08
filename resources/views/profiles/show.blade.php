@@ -26,7 +26,6 @@
                             posts until an administrator reviews it.
                         </div>
                     @endif
-                    <a href="/profiles/{{ $profile->id }}/posts" class="btn btn-primary">View My Posts</a>
                 @endif
 
                 @if($signedIn && $isAdmin)

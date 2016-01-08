@@ -31,7 +31,6 @@
                 @if ($signedIn)
                     @if($hasProfile)
                         <li><a href="/profiles/{{$user->profile->id}}">My Profile</a></li>
-                        <li><a href="/profiles/{{$user->profile->id}}/posts">My Posts</a></li>
                     @elseif(!$isAdmin)
                         <li><a href="/profiles/create">Create Profile</a></li>
                     @endif
