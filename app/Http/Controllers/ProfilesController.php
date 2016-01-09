@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddProfilePhotoRequest;
 use App\Http\Requests\DeleteProfilePhotoRequest;
+use App\Http\Requests\EditProfileRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Photo;
 use App\Post;
 use App\Profile;
@@ -83,8 +85,9 @@ class ProfilesController extends Controller {
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
-        //
+    public function edit(EditProfileRequest $request, $id) {
+        $profile = Profile::findOrFail($id);
+        return view('profiles.edit', compact('profile'));
     }
 
     /**
@@ -94,8 +97,14 @@ class ProfilesController extends Controller {
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
-        //
+    public function update(UpdateProfileRequest $request, $id) {
+        /** @var Profile $profile */
+        $profile = Profile::findOrFail($id);
+        $profile->update($request->all());
+
+        flash()->success('Success!', 'Profile has been updated.');
+
+        return redirect()->route('profiles.show', ['profiles' => $id]);
     }
 
     /**************************

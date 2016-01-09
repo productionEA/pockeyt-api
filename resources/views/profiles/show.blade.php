@@ -15,7 +15,9 @@
         <div class="row">
             <div class="col-md-4">
                 <h1>{{ $profile->business_name }}</h1>
-                @if ($user && $user->owns($profile))
+
+                @if ($signedIn && $user->owns($profile) && !$isAdmin)
+                    <hr>
                     @if($profile->approved)
                         <div class="alert alert-success">
                             Your profile is <strong>approved</strong>. Users will be able to see it and any of your posts.
@@ -29,12 +31,21 @@
                 @endif
 
                 @if($signedIn && $isAdmin)
+                    <hr>
                     @include('partials.profiles.admin_approval_status')
                 @endif
 
                 <hr>
 
                 <div class="description">{!! nl2br($profile->description) !!}</div>
+
+                <hr>
+
+                <a href="{{ $profile->website }}" class="btn btn-block btn-primary">Visit website</a>
+
+                @if($signedIn && ($user->owns($profile) || $user->is_admin))
+                    <a href="{{ route('profiles.edit', ['profiles' => $profile->id])  }}" class="btn btn-block btn-info">Edit Profile</a>
+                @endif
 
                 <hr>
 

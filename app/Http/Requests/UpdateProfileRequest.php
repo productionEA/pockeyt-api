@@ -2,16 +2,14 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
-class ProfileRequest extends Request {
+class UpdateProfileRequest extends Request {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
     public function authorize() {
-        return true;
+        return !is_null($user = \Auth::user()) && ($user->is_admin || $this->route('profiles') == $user->profile->id);
     }
 
     /**
@@ -20,10 +18,6 @@ class ProfileRequest extends Request {
      * @return array
      */
     public function rules() {
-        return [
-            'business_name' => 'required',
-            'website' => 'required',
-            'description' => 'required'
-        ];
+        return with(new ProfileRequest())->rules();
     }
 }
