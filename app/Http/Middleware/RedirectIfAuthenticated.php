@@ -32,7 +32,7 @@ class RedirectIfAuthenticated {
      */
     public function handle($request, Closure $next) {
         if($this->auth->check()) {
-            return redirect('/home');
+            return redirect()->route('app.index');
         }
 
         return $next($request);

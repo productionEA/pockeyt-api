@@ -19,7 +19,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="{{ route('app.index') }}">
                 Pockeyt Business
                 @if($isAdmin)
                     <span class="text-primary">(Admin)</span>

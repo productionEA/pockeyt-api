@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/', 'AppController@index')->name('home');
+Route::get('/', 'AppController@index')->name('app.index');
 
 // Auth routes...
 Route::get('auth/login',        'Auth\AuthController@getLogin')->name('auth.login');

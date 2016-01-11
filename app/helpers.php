@@ -26,7 +26,7 @@ function flash($title = null, $message = null) {
  * @return string
  */
 function profile_path(App\Profile $profile) {
-	return '/profiles/' . $profile->id;
+	return route('profiles.show', ['profiles' => $profile->id]);
 }
 
 function clean_newlines($string) {

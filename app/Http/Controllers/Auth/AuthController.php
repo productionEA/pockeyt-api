@@ -43,7 +43,7 @@ class AuthController extends Controller {
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data) {
-        $this->redirectPath = '/profiles/create';
+        $this->redirectPath = route('profiles.create');
 
         return \Validator::make($data, [
             'name' => 'required|max:255',

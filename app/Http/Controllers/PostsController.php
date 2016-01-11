@@ -60,7 +60,7 @@ class PostsController extends Controller {
         $this->user->profile->posts()->save($post);
 
         flash()->success('Success', 'Your post has been created!');
-        return redirect('/profiles/' . $this->user->profile->id);
+        return redirect()->route('profiles.show', ['profiles' => $this->user->profile->id]);
     }
 
     public function destroy(DeletePostRequest $request, $id) {

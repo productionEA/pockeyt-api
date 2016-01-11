@@ -35,7 +35,7 @@ class Authenticate {
             if($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('auth/login');
+                return redirect()->guest(route('auth.login'));
             }
         } elseif($level === 'admin' && !$this->auth->user()->is_admin) {
             if($request->ajax()) {
