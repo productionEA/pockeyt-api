@@ -76,7 +76,7 @@
                 @endforeach
             @else
 
-                <div class="alert alert-danger">No profiles found.</div>
+                <div class="alert alert-warning text-center">No profiles found.</div>
 
             @endif
 

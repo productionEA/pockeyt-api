@@ -3,10 +3,25 @@
 
 @section('content')
 
-    <div class="alert alert-info">
-        Only posts from approved profiles will be shown here.
+    <div class="row">
+        <div class="col-md-12">
+
+            <h1>All Posts</h1>
+
+            <div class="alert alert-info">
+                Only posts from approved profiles will be shown here.
+            </div>
+
+        </div>
     </div>
 
-    @include('partials.posts.list')
+    <div class="row">
+        <div class="col-md-12">
+
+            @include('partials.posts.list')
+
+        </div>
+    </div>
+
 
 @stop
