@@ -53,14 +53,14 @@
                     <div class="col-md-12">
                         <p><label>Logo</label></p>
                         @if(is_null($profile->logo))
-                            <form id="uploadLogo" action="/profiles/{{ $profile->id }}/photos" method="POST" class="dropzone">
+                            <form id="uploadLogo" action="{{ route('profiles.photos', ['profiles' => $profile->id]) }}" method="POST" class="dropzone">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="type" value="logo">
                             </form>
                         @else
                             <p><img src="{{ $profile->logo->url }}"></p>
                             @if($user && $user->owns($profile))
-                                <form action="/profiles/{{ $profile->id }}/photos" method="POST">
+                                <form action="{{ route('profiles.photos', ['profiles' => $profile->id]) }}" method="POST">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="type" value="logo">
                                     <input type="hidden" name="_method" value="DELETE">
@@ -77,14 +77,14 @@
                     <div class="col-md-12">
                         <p><label>Hero/Banner</label></p>
                         @if(is_null($profile->hero))
-                            <form id="uploadHero" action="/profiles/{{ $profile->id }}/photos" method="POST" class="dropzone">
+                            <form id="uploadHero" action="{{ route('profiles.photos', ['profiles' => $profile->id]) }}" method="POST" class="dropzone">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="type" value="hero">
                             </form>
                         @else
                             <p><img src="{{ $profile->hero->url }}"></p>
                             @if($user && $user->owns($profile))
-                                <form action="/profiles/{{ $profile->id }}/photos" method="POST">
+                                <form action="{{ route('profiles.photos', ['profiles' => $profile->id]) }}" method="POST">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="type" value="hero">
                                     <input type="hidden" name="_method" value="DELETE">
@@ -101,7 +101,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h2>Create a Post</h2>
-                            <form method="POST" action="/posts">
+                            <form method="POST" action="{{ route('posts.store') }}">
                                 @include ('posts.form')
                                 @include ('errors.form')
                             </form>

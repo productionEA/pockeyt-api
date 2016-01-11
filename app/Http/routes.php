@@ -1,23 +1,28 @@
 <?php
 
-Route::get('/', 'AppController@index');
+Route::get('/', 'AppController@index')->name('home');
 
 // Auth routes...
-Route::get('auth/login',        'Auth\AuthController@getLogin');
+Route::get('auth/login',        'Auth\AuthController@getLogin')->name('auth.login');
 Route::post('auth/login',       'Auth\AuthController@postLogin');
-Route::get('auth/logout',       'Auth\AuthController@getLogout');
-Route::get('auth/register',     'Auth\AuthController@getRegister');
+Route::get('auth/logout',       'Auth\AuthController@getLogout')->name('auth.logout');
+Route::get('auth/register',     'Auth\AuthController@getRegister')->name('auth.register');
 Route::post('auth/register',    'Auth\AuthController@postRegister');
 
 // Posts routes...
 Route::resource('posts', 'PostsController', ['only' => ['index', 'store', 'show', 'destroy']]);
 
 // Profile routes...
-Route::post('profiles/{profile}/photos', 'ProfilesController@postPhotos');
-Route::post('profiles/{profile}/approve', 'ProfilesController@postApprove');
-Route::post('profiles/{profile}/unapprove', 'ProfilesController@postUnapprove');
-Route::delete('profiles/{profile}/photos', 'ProfilesController@deletePhotos');
+Route::post('profiles/{profiles}/photos', 'ProfilesController@postPhotos')->name('profiles.photos');
+Route::delete('profiles/{profiles}/photos', 'ProfilesController@deletePhotos');
+Route::post('profiles/{profiles}/approve', 'ProfilesController@postApprove')->name('profiles.approve');
+Route::post('profiles/{profiles}/unapprove', 'ProfilesController@postUnapprove')->name('profiles.unapprove');
 Route::resource('profiles', 'ProfilesController');
 
 // API Routes
-Route::controller('api', 'APIController');
+Route::controller('api', 'APIController', [
+    'getPosts' => 'api.posts',
+    'getPost' => 'api.post',
+    'getProfiles' => 'api.profiles',
+    'getProfile' => 'api.profile',
+]);

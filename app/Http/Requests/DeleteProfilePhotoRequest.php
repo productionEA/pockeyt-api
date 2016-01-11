@@ -13,12 +13,13 @@ class DeleteProfilePhotoRequest extends Request {
      * @return bool
      */
     public function authorize() {
-        $profile = $this->route('profile');
+        $profile = $this->route('profiles');
         if(!is_null($user = \Auth::user())) {
-            return !is_null($user->profile) && $user->profile->id == $profile;
+            return $user->is_admin || (!is_null($user->profile) && $user->profile->id == $profile);
         }
         return false;
     }
+
 
     /**
      * Get the validation rules that apply to the request.

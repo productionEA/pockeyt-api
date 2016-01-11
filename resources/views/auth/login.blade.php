@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form method="POST" action="/auth/login">
+            <form method="POST" action="{{ route('auth.login') }}">
                 {!! csrf_field() !!}
                 <div class="form-group">
                     <label for="email">Email:</label>

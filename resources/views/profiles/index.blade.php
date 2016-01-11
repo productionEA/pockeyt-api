@@ -52,7 +52,7 @@
                                 <div class="profile-list-item-header" {!! !is_null($profile->hero) ? 'style="background-image: url(\'' . $profile->hero->url . '\');"' : '' !!}>
                                     <div class="profile-list-item-header-screen"></div>
                                     <h2>{{ $profile->business_name }}</h2>
-                                    <a href="/profiles/{{ $profile->id }}" class="btn btn-primary profile-list-item-view-button">View profile</a>
+                                    <a href="{{ route('profiles.show', ['profiles' => $profile->id]) }}" class="btn btn-primary profile-list-item-view-button">View profile</a>
                                 </div>
 
                                 <div class="profile-list-item-body">

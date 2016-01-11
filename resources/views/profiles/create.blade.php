@@ -17,7 +17,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="/profiles" enctype="multipart/form-data" class="col-md-6">
+            <form method="POST" action="{{ route('profiles.store') }}" enctype="multipart/form-data" class="col-md-6">
                 @include ('errors.form')
                 @include ('profiles.form')
             </form>

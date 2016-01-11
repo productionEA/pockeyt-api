@@ -7,11 +7,11 @@
                 </div>
             @endif
             <div style="display:inline-block;">
-                <h3><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></h3>
+                <h3><a href="{{ route('posts.show', ['posts' => $post->id]) }}">{{ $post->title }}</a></h3>
                 <div>
                     {{ $post->published_at->diffForHumans() }}
                     by
-                    <a href="/profiles/{{ $post->profile->id }}">
+                    <a href="{{ route('profiles.show', ['profiles' => $post->profile->id]) }}">
                         <strong>{{ $post->profile->business_name }}</strong>
                     </a>
                     @if($signedIn && ($isAdmin || $user->profile->owns($post)))
