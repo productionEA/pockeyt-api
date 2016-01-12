@@ -24,8 +24,10 @@ class Profile extends Model {
         'approved' => 'boolean'
     ];
 
+    protected $appends = ['formatted_description'];
+
     public function toDetailedArray() {
-        $data = array_only($this->toArray(), ['id', 'business_name', 'website', 'description', 'created_at', 'updated_at', 'posts']);
+        $data = array_only($this->toArray(), ['id', 'business_name', 'website', 'description', 'formatted_description', 'created_at', 'updated_at', 'posts']);
         $data['logo_thumbnail'] = $this->logo->thumbnail_url;
         $data['logo'] = $this->logo->url;
         $data['hero_thumbnail'] = $this->hero->thumbnail_url;
