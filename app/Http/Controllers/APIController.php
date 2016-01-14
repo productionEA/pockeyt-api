@@ -27,7 +27,7 @@ class APIController extends Controller {
     }
 
     public function getProfiles() {
-        $profiles = Profile::approved()->with(['logo', 'hero', 'posts'])->get()->map(function(Profile $profile) {
+        $profiles = Profile::approved()->with(['logo', 'hero', 'posts'])->orderBy('business_name', 'ASC')->get()->map(function(Profile $profile) {
             return $profile->toDetailedArray();
         });
         return response()->json($profiles);

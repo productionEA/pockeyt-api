@@ -59,7 +59,7 @@
                             </form>
                         @else
                             <p><img src="{{ $profile->logo->url }}"></p>
-                            @if($user && $user->owns($profile))
+                            @if($user && ($user->owns($profile) || $isAdmin))
                                 <form action="{{ route('profiles.photos', ['profiles' => $profile->id]) }}" method="POST">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="type" value="logo">
@@ -83,7 +83,7 @@
                             </form>
                         @else
                             <p><img src="{{ $profile->hero->url }}"></p>
-                            @if($user && $user->owns($profile))
+                            @if($user && ($user->owns($profile) || $isAdmin))
                                 <form action="{{ route('profiles.photos', ['profiles' => $profile->id]) }}" method="POST">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="type" value="hero">

@@ -28,10 +28,10 @@ class Profile extends Model {
 
     public function toDetailedArray() {
         $data = array_only($this->toArray(), ['id', 'business_name', 'website', 'description', 'formatted_description', 'created_at', 'updated_at', 'posts']);
-        $data['logo_thumbnail'] = $this->logo->thumbnail_url;
-        $data['logo'] = $this->logo->url;
-        $data['hero_thumbnail'] = $this->hero->thumbnail_url;
-        $data['hero'] = $this->hero->url;
+        $data['logo_thumbnail'] = is_null($this->logo) ? '' : $this->logo->thumbnail_url;
+        $data['logo'] = is_null($this->logo) ? '' : $this->logo->url;
+        $data['hero_thumbnail'] = is_null($this->hero) ? '' : $this->hero->thumbnail_url;
+        $data['hero'] = is_null($this->hero) ? '' : $this->hero->url;
 
         return $data;
     }

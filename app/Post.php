@@ -26,6 +26,14 @@ class Post extends Model {
 
     protected $appends = ['formatted_body'];
 
+    public static function boot() {
+        parent::boot();
+
+        static::created(function(Post $post) {
+            $post->profile->touch();
+        });
+    }
+
     /**
      * Sets the published at attribute
      *
