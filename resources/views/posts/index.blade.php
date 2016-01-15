@@ -7,6 +7,8 @@
         <div class="col-md-12">
 
             <h1>All Posts</h1>
+            
+            <hr>
 
             <div class="alert alert-info">
                 Only posts from approved profiles will be shown here.

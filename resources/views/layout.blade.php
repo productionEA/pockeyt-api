@@ -2,9 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pockeyt Business</title>
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/libs.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/dropzone.css">
 </head>
 
@@ -20,14 +22,14 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="{{ route('app.index') }}">
-                Pockeyt Business
+                <img src="{{ asset('/images/pockeyt-logo.png') }}" class="logo">
                 @if($isAdmin)
                     <span class="text-primary">(Admin)</span>
                 @endif
             </a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav navbar-right">
                 @if ($signedIn)
                     @if($hasProfile)
                         <li><a href="{{ route('profiles.show', ['profiles' => $user->profile->id]) }}">My Profile</a></li>
@@ -52,10 +54,16 @@
     </div>
 </nav>
 
-
-<div class="container">
-    @yield('content')
+<div class="wrapper">
+	<div class="container">
+	    @yield('content')
+	</div>
 </div>
+
+<footer>
+	<p>Made with with love in Raleigh</p>
+	<p>In affiliation with NCSU and Mentorship from endUp</p>
+</footer>
 
 <script src="{{ asset('/js/libs.js') }}"></script>
 @yield('scripts.footer')

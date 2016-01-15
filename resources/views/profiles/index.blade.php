@@ -7,6 +7,8 @@
         <div class="col-md-12">
 
             <h1>All Profiles</h1>
+            
+            <hr>
 
             <div class="alert alert-info">
                 All created profiles are listed below along with their approval status and related information.

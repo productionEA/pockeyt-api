@@ -3,6 +3,9 @@
 @section('content')
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
+	        <h1>Login</h1>
+
+            <hr>
             <form method="POST" action="{{ route('auth.login') }}">
                 {!! csrf_field() !!}
                 <div class="form-group">
