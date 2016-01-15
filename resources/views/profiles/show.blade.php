@@ -28,11 +28,18 @@
                             posts until an administrator reviews it.
                         </div>
                     @endif
+
+                    @if($profile->featured)
+                        <div class="alert alert-info">
+                            Your profile is featured!
+                        </div>
+                    @endif
                 @endif
 
                 @if($signedIn && $isAdmin)
                     <hr>
                     @include('partials.profiles.admin_approval_status')
+                    @include('partials.profiles.admin_featured_status')
                 @endif
 
                 <hr>

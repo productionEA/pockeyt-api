@@ -32,6 +32,7 @@
                                 @endif
 
                                 @include('partials.profiles.admin_approval_status')
+                                @include('partials.profiles.admin_featured_status')
 
                                 <table class="table profile-list-item-table">
                                     <tbody>

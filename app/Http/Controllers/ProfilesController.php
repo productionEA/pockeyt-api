@@ -21,7 +21,7 @@ class ProfilesController extends Controller {
      */
     public function __construct() {
         $this->middleware('auth', ['except' => ['show', 'index', 'getPosts']]);
-        $this->middleware('auth:admin', ['only' => ['index', 'postApprove', 'postUnapprove']]);
+        $this->middleware('auth:admin', ['only' => ['index', 'postApprove', 'postUnapprove', 'postFeature', 'postUnfeature']]);
 
         parent::__construct();
     }
@@ -141,6 +141,22 @@ class ProfilesController extends Controller {
         /** @var Profile $profile */
         $profile = Profile::findOrFail($profile_id);
         $profile->approved = false;
+        $profile->save();
+        return redirect()->to(\URL::previous() . '#profile-' . $profile->id);
+    }
+
+    public function postFeature($profile_id) {
+        /** @var Profile $profile */
+        $profile = Profile::findOrFail($profile_id);
+        $profile->featured = true;
+        $profile->save();
+        return redirect()->to(\URL::previous() . '#profile-' . $profile->id);
+    }
+
+    public function postUnfeature($profile_id) {
+        /** @var Profile $profile */
+        $profile = Profile::findOrFail($profile_id);
+        $profile->featured = false;
         $profile->save();
         return redirect()->to(\URL::previous() . '#profile-' . $profile->id);
     }

@@ -17,6 +17,8 @@ Route::post('profiles/{profiles}/photos', 'ProfilesController@postPhotos')->name
 Route::delete('profiles/{profiles}/photos', 'ProfilesController@deletePhotos');
 Route::post('profiles/{profiles}/approve', 'ProfilesController@postApprove')->name('profiles.approve');
 Route::post('profiles/{profiles}/unapprove', 'ProfilesController@postUnapprove')->name('profiles.unapprove');
+Route::post('profiles/{profiles}/feature', 'ProfilesController@postFeature')->name('profiles.feature');
+Route::post('profiles/{profiles}/unfeature', 'ProfilesController@postUnfeature')->name('profiles.unfeature');
 Route::resource('profiles', 'ProfilesController');
 
 // API Routes

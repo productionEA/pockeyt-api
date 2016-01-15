@@ -17,17 +17,19 @@ class Profile extends Model {
         'website',
         'description',
         'logo_photo_id',
-        'hero_photo_id'
+        'hero_photo_id',
+        'featured'
     ];
 
     protected $casts = [
-        'approved' => 'boolean'
+        'approved' => 'boolean',
+        'featured' => 'boolean',
     ];
 
     protected $appends = ['formatted_description'];
 
     public function toDetailedArray() {
-        $data = array_only($this->toArray(), ['id', 'business_name', 'website', 'description', 'formatted_description', 'created_at', 'updated_at', 'posts']);
+        $data = array_only($this->toArray(), ['id', 'business_name', 'website', 'description', 'formatted_description', 'created_at', 'updated_at', 'posts', 'featured']);
         $data['logo_thumbnail'] = is_null($this->logo) ? '' : $this->logo->thumbnail_url;
         $data['logo'] = is_null($this->logo) ? '' : $this->logo->url;
         $data['hero_thumbnail'] = is_null($this->hero) ? '' : $this->hero->thumbnail_url;
@@ -116,5 +118,21 @@ class Profile extends Model {
             }
             return $query;
         });
+    }
+
+    /**
+     * @param Builder|\Illuminate\Database\Eloquent\Builder|Profile $query
+     * @return mixed
+     */
+    public function scopeFeatured($query) {
+        return $query->where('featured', true);
+    }
+
+    /**
+     * @param Builder|\Illuminate\Database\Eloquent\Builder|Profile $query
+     * @return mixed
+     */
+    public function scopeNotFeatured($query) {
+        return $query->where('featured', false);
     }
 }
