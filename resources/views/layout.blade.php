@@ -65,6 +65,8 @@
 	<p>In affiliation with NCSU and Mentorship from endUp</p>
 </footer>
 
+<script src="{{ asset('/vendor/jquery/jquery-1.12.0.min.js') }}"></script>
+<script src="{{ asset('/vendor/bootstrap/js/bootstrap.js') }}"></script>
 <script src="{{ asset('/js/libs.js') }}"></script>
 @yield('scripts.footer')
 
